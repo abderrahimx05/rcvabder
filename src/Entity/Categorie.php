@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CatalogieRepository;
+use App\Repository\CategorieRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CatalogieRepository::class)]
-class Catalogie
+#[ORM\Entity(repositoryClass: CategorieRepository::class)]
+class Categorie
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,17 +16,21 @@ class Catalogie
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $prix = null;
+    #[ORM\Column]
+    private ?float $prix = null;
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $ageMini = null;
+    private ?int $agiMini = null;
 
     #[ORM\Column]
-    private ?int $ageMax = null;
+    private ?int $ageMaxi = null;
+
+    #[ORM\ManyToOne(inversedBy: 'categories')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Pole $idPole = null;
 
     public function getId(): ?int
     {
@@ -45,12 +49,12 @@ class Catalogie
         return $this;
     }
 
-    public function getPrix(): ?string
+    public function getPrix(): ?float
     {
         return $this->prix;
     }
 
-    public function setPrix(string $prix): self
+    public function setPrix(float $prix): self
     {
         $this->prix = $prix;
 
@@ -69,26 +73,38 @@ class Catalogie
         return $this;
     }
 
-    public function getAgeMini(): ?int
+    public function getAgiMini(): ?int
     {
-        return $this->ageMini;
+        return $this->agiMini;
     }
 
-    public function setAgeMini(int $ageMini): self
+    public function setAgiMini(int $agiMini): self
     {
-        $this->ageMini = $ageMini;
+        $this->agiMini = $agiMini;
 
         return $this;
     }
 
-    public function getAgeMax(): ?int
+    public function getAgeMaxi(): ?int
     {
-        return $this->ageMax;
+        return $this->ageMaxi;
     }
 
-    public function setAgeMax(int $ageMax): self
+    public function setAgeMaxi(int $ageMaxi): self
     {
-        $this->ageMax = $ageMax;
+        $this->ageMaxi = $ageMaxi;
+
+        return $this;
+    }
+
+    public function getIdPole(): ?Pole
+    {
+        return $this->idPole;
+    }
+
+    public function setIdPole(?Pole $idPole): self
+    {
+        $this->idPole = $idPole;
 
         return $this;
     }

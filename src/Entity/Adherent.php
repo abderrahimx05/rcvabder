@@ -41,6 +41,10 @@ class Adherent
     #[ORM\Column(length: 255)]
     private ?string $motPasse = null;
 
+    #[ORM\ManyToOne(inversedBy: 'idAdherent')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CategorieAdherent $idCategorieAdherent = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,6 +154,18 @@ class Adherent
     public function setMotPasse(string $motPasse): self
     {
         $this->motPasse = $motPasse;
+
+        return $this;
+    }
+
+    public function getIdCategorieAdherent(): ?CategorieAdherent
+    {
+        return $this->idCategorieAdherent;
+    }
+
+    public function setIdCategorieAdherent(?CategorieAdherent $idCategorieAdherent): self
+    {
+        $this->idCategorieAdherent = $idCategorieAdherent;
 
         return $this;
     }
